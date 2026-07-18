@@ -1,0 +1,38 @@
+# Virtual environment
+.venv/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OneOCR native binaries
+vendor/Oneocr/**/*.dll
+vendor/Oneocr/**/*.onemodel
+vendor/Oneocr/runtime/
+
+# llama.cpp prebuilt binaries (large AMD ROCm bundle)
+llama_cpp/binaries/
+llama-bin-windows.zip
+llama-b*-windows-*.zip
+
+# GGUF model files
+models/*.gguf
+models/*/
+
+# Debug artifacts (all generated at runtime)
+debug/
+
+# Runtime config (user-specific)
+config.runtime.json
+
+# Scratch files (kept in sync with scripts/reset_state.py:FILE_NAMES)
+_commit_msg.txt
+_audit_imports.py
+_audit_full.py
+_fix_docstring_order.py
+_smoke_font.py
+_ruff.log
+_mypy_full.log
+_mypy_priority.log

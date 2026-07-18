@@ -1,0 +1,8 @@
+# Dev-time tools for tests, linting, and type checking.
+# Install on top of requirements.txt:
+#   .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt
+pytest>=8.3,<8.4
+pytest-qt>=4.4,<4.5
+mypy>=1.13,<1.14
+ruff>=0.8,<0.9
+types-requests

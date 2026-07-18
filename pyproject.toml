@@ -1,0 +1,66 @@
+# Project-level tool configuration. No build / packaging table: this is an
+# application, not a library, and we run via run.bat / main.py directly.
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+extend-exclude = [
+    ".venv",
+    "vendor",
+    "llama_cpp",
+    "models",
+    "debug",
+    "__pycache__",
+]
+
+[tool.ruff.lint]
+# Conservative starter set:
+#   E  pycodestyle errors
+#   F  pyflakes (unused imports, undefined names, etc.)
+#   W  pycodestyle warnings
+#   I  isort (import sorting)
+# Skip B / UP / N / S for now; they would produce a flood against this
+# codebase's existing idioms. Opt in later in a focused pass.
+select = ["E", "F", "W", "I"]
+ignore = [
+    # Allow long lines that don't warrant a rewrite (e.g. log calls, regexes).
+    # Real overflow is still flagged at >120 chars by line-length above.
+    "E501",
+]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests routinely import things they only assert about; allow unused imports.
+"tests/*" = ["F401"]
+
+[tool.mypy]
+python_version = "3.12"
+# Most runtime deps (PyQt6, cv2, rapidfuzz, keyboard, OneOCR vendor) ship no
+# stubs. Globally tolerate that; per-module sections below tighten where we can.
+ignore_missing_imports = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+# check_untyped_defs runs mypy inside function bodies even when the def itself
+# has no annotations. Without this, ~half the codebase silently bypasses every
+# check — and that's how the F821 _preview_text bug hid until commit 9508fb1.
+check_untyped_defs = true
+exclude = [
+    "vendor/",
+    "llama_cpp/",
+    "\\.venv/",
+    "debug/",
+]
+
+# Per-module strictness — only modules that are clean today.
+[[tool.mypy.overrides]]
+module = ["app.geometry", "app.text", "app.color", "app.types"]
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+no_implicit_optional = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+qt_api = "pyqt6"
+# Quiet, no captured-output rewrite, fail fast on the first surprise.
+addopts = "-ra"

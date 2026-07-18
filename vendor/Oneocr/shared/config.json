@@ -1,0 +1,28 @@
+{
+  "app_name": "OneOcr",
+  "cache_root_name": "OneOcr",
+  "runtime_cache_subdirectory": "runtime-cache",
+  "runtime_relative_path": "runtime/win-x64",
+  "runtime_manifest_name": "manifest.json",
+  "required_runtime_files": [
+    "oneocr.dll",
+    "oneocr.onemodel",
+    "onnxruntime.dll"
+  ],
+  "ocr": {
+    "dll_name": "oneocr.dll",
+    "model_name": "oneocr.onemodel",
+    "model_key": "kj)TGtrK>f]b[Piow.gU+nC@s\"\"\"\"\"\"4",
+    "max_recognition_line_count": 1000
+  },
+  "image": {
+    "min_size": 50,
+    "max_size": 10000,
+    "upscale_small_images": true
+  },
+  "gui": {
+    "window_title": "OCR Result",
+    "open_dialog_title": "Select image for OCR",
+    "open_dialog_filter": "Image files|*.png;*.jpg;*.jpeg;*.bmp;*.tif;*.tiff;*.webp|All files|*.*"
+  }
+}
